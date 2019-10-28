@@ -12,12 +12,12 @@ namespace PingAdres
    {
       static void Main(string[] args)
       {
-         List<string> serversList = new List<string>();         
-         serversList.Add("google.com"); 
-         
-         serversList.Add("www.sdkpro.ru");
-
-         serversList.Add("hrost8000.asuscomm.com");
+         List<string> serversList = new List<string>
+         {
+            "google.com",
+            "www.sdkpro.ru",
+            "hrost8000.asuscomm.com"
+         };
 
          string Something = string.Join("   ", serversList);
          Console.WriteLine("Адреса для проверки = " + Something);
@@ -34,7 +34,7 @@ namespace PingAdres
                try
                {
                   IPHostEntry hostInfo = Dns.Resolve(server);
-                  Console.WriteLine("Пмнгуем hostInfo.HostName= " + hostInfo.HostName); //IP
+                  Console.WriteLine("Пингуем hostInfo.HostName= " + hostInfo.HostName +" ждите"); //IP
                }
                catch (Exception ee)
                {
