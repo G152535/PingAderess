@@ -16,7 +16,7 @@ namespace PingAdres
          {
             "google.com",
             "www.sdkpro.ru",
-            "hrost8000.asuscomm.com",
+            "83.221.200.236",
             "10.8.0.1",
             "10.15.0.61",
             "10.15.0.121"
