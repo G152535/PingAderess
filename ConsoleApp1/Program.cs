@@ -16,63 +16,48 @@ namespace PingAdres
          {
             "google.com",
             "www.sdkpro.ru",
-            "hrost8000.asuscomm.com"
+            "hrost8000.asuscomm.com",
+            "10.8.0.1",
+            "10.15.0.61",
+            "10.15.0.121"
          };
-
-         string Something = string.Join("   ", serversList);
-         Console.WriteLine("Адреса для проверки = " + Something);
+         Console.WriteLine("Пингуем эти адреса");
+         serversList.ForEach(i => Console.WriteLine(i)); 
 
          Console.WriteLine();
 
          Ping ping = new System.Net.NetworkInformation.Ping();
-            PingReply pingReply = null;
-            
+            PingReply pingReply = null;            
 
-            foreach (string server in serversList)
+         foreach (string server in serversList)
+         {
+            try
             {
-
-               try
-               {
-                  IPHostEntry hostInfo = Dns.Resolve(server);
-                  Console.WriteLine("Пингуем hostInfo.HostName= " + hostInfo.HostName +" ждите"); //IP
-               }
-               catch (Exception ee)
-               {
-               Console.WriteLine(ee.Message);
-               Console.WriteLine(server); //server
-               Console.WriteLine(ee.Message);
-               Console.WriteLine();
-                  continue;
-               }
-
-            
-
-              pingReply = ping.Send(server);
+               pingReply = ping.Send(server);
 
                if (pingReply.Status != IPStatus.TimedOut)
                {
-               Console.WriteLine("Server= " + server); //server
-               Console.WriteLine("Address= " + pingReply.Address); //IP
-               Console.WriteLine("Status= " + pingReply.Status); //Статус
-               Console.WriteLine("RoundtripTime= " + pingReply.RoundtripTime); //Время ответа
-               Console.WriteLine("Options.Ttl= " + pingReply.Options.Ttl); //TTL
-               Console.WriteLine("Options.DontFragment= " + pingReply.Options.DontFragment); //Фрагментирование
-               Console.WriteLine("Buffer.Length= " + pingReply.Buffer.Length); //Размер буфера
-               Console.WriteLine();
+                  Console.WriteLine("Server= " + server); //server
+                  Console.WriteLine("Address= " + pingReply.Address); //IP
+                  Console.WriteLine("Status= " + pingReply.Status); //Статус
+                  Console.WriteLine("RoundtripTime= " + pingReply.RoundtripTime); //Время ответа
+                  Console.WriteLine("TTL= " + pingReply.Options.Ttl); //TTL
+                  Console.WriteLine("Фрагментирование= " + pingReply.Options.DontFragment); //Фрагментирование
+                  Console.WriteLine("Buffer.Length= " + pingReply.Buffer.Length); //Размер буфера
+                  Console.WriteLine();
                }
                else
                {
-               Console.WriteLine(server); //server
-               Console.WriteLine(pingReply.Status);
-               Console.WriteLine();
-               
+                  Console.WriteLine(server); //server
+                  Console.WriteLine(pingReply.Status);
+                  Console.WriteLine();
                }
-
-             
-            }//конец цикла
-        
-
-         
+            }
+            catch (Exception ex)
+            {
+               Console.WriteLine("Err-"+server+": "+ex.Message);
+            }
+         }//конец цикла         
          Console.ReadKey();
       }
    }
